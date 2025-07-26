@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import type { Movie } from '@entities/movie';
 import type { User } from '@entities/user';
+import { VideoState } from '@shared/config/types';
 import { FeaturedMovie } from '@widgets/FeaturedMovie';
 import { TrendingCarousel } from '@widgets/TrendingCarousel';
 import { MainMenu } from '@app/components/MainMenu';
 import { useSelectMovie } from '@features/selectMovie';
-import { selectMovie } from '@features/selectMovie';
-import { movieUtils } from '@shared/lib/movieUtils';
 import { sessionStorageService } from '@shared/lib/sessionStorage';
 import { dataService } from '@shared/lib/dataService';
 import { TRENDING_CAROUSEL_CONFIG } from '@shared/config/constants';
@@ -18,9 +17,10 @@ export const HomePage: React.FC = () => {
   const [trendingMovies, setTrendingMovies] = useState<Movie[]>([]);
   const [user] = useState<User>(UserEntity.createDefault().toJSON());
   const [isLoading, setIsLoading] = useState(true);
+  const [videoState, setVideoState] = useState<VideoState>(VideoState.IDLE);
+  const [activeMenuItem, setActiveMenuItem] = useState<string>('home');
 
   const selectMovieHandler = useSelectMovie(setFeaturedMovie);
-
   useEffect(() => {
     // Load real data from data service
     const loadData = async () => {
@@ -55,21 +55,28 @@ export const HomePage: React.FC = () => {
     loadData();
   }, []);
 
+  useEffect(() => {
+    const handlePlayBackgroundVideo = (event: CustomEvent) => setVideoState(VideoState.PLAYING);
+  
+    window.addEventListener('playBackgroundVideo', handlePlayBackgroundVideo as EventListener);
+  
+    return () => {
+      window.removeEventListener('playBackgroundVideo', handlePlayBackgroundVideo as EventListener);
+    };
+  }, []);
+  
+
   const handleMenuItemClick = (itemId: string) => {
     console.log('Menu item clicked:', itemId);
-    // Handle menu navigation here
+    setActiveMenuItem(itemId);
   };
 
-  const handlePlayClick = () => {
-    if(!featuredMovie){
+  const handlePlayClick = (currentMovie: Movie) => {
+    if(!currentMovie){
       return;
     }
-    selectMovie({ 
-      movie: featuredMovie, 
-      onMovieSelected: selectMovieHandler, 
-      immediate: true 
-    });
-  
+    setVideoState(VideoState.LOADING);
+    selectMovieHandler(currentMovie);
   };
 
   const handleMoreInfoClick = () => {
@@ -92,11 +99,16 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className="home-page">
-      <MainMenu user={user} onMenuItemClick={handleMenuItemClick} />
+      <MainMenu 
+        user={user} 
+        onMenuItemClick={handleMenuItemClick}
+        activeMenuItem={activeMenuItem}
+      />
       
       <main className="home-page__content">
         <div className="home-page__featured">
           <FeaturedMovie
+            videoState={videoState}
             movie={featuredMovie}
             onPlayClick={handlePlayClick}
             onMoreInfoClick={handleMoreInfoClick}
@@ -106,7 +118,7 @@ export const HomePage: React.FC = () => {
         <div className="home-page__trending">
           <TrendingCarousel
             movies={trendingMovies}
-            onMovieClick={selectMovieHandler}
+            onMovieClick={handlePlayClick}
           />
         </div>
       </main>

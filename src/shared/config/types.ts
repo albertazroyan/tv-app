@@ -25,6 +25,12 @@ export interface MenuState {
   hoveredItem: string | null;
 }
 
+export enum VideoState {
+  IDLE = 'idle',
+  LOADING = 'loading',
+  PLAYING = 'playing'
+}
+
 export interface AppState {
   featuredMovie: Movie | null;
   trendingMovies: Movie[];

@@ -1,62 +1,39 @@
 import React, { useEffect, useRef, useState } from 'react';
 import type { Movie } from '@entities/movie';
+import { VideoState } from '@shared/config/types';
 import { Button } from '@shared/ui';
 import { movieUtils } from '@shared/lib/movieUtils';
 import './FeaturedMovie.css';
 
+const DEFAULT_VIDEO_URL = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+
 interface FeaturedMovieProps {
   movie: Movie | null;
-  onPlayClick?: () => void;
+  onPlayClick?: (movie: Movie) => void;
   onMoreInfoClick?: () => void;
+  videoState: VideoState;
 }
 
 export const FeaturedMovie: React.FC<FeaturedMovieProps> = ({
   movie,
   onPlayClick,
   onMoreInfoClick,
+  videoState
 }) => {
-  const [showVideo, setShowVideo] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState<string>('');
   const videoRef = useRef<HTMLVideoElement | null>(null);
-
+  
   useEffect(() => {
     if (movie) {
       setBackgroundImage(movie.coverImage);
-      setShowVideo(false);
     }
   }, [movie]);
 
-  useEffect(() => {
-    const handlePlayBackgroundVideo = (event: CustomEvent) => {
-      setTimeout(() => {
-        setShowVideo(true);
-      }, 2000);
-    };
-
-    window.addEventListener('playBackgroundVideo', handlePlayBackgroundVideo as EventListener);
-    
-    return () => {
-      window.removeEventListener('playBackgroundVideo', handlePlayBackgroundVideo as EventListener);
-    };
-  }, []);
-
-  const handleFullscreen = () => {
-    if (videoRef.current) {
-      if (document.fullscreenElement) {
-        document.exitFullscreen();
-      } else {
-        videoRef.current.requestFullscreen().catch(err => {
-          console.error('Failed to enter fullscreen:', err);
-        });
-      }
-    }
-  };
-
-  if (!movie) {
+  if (!movie || videoState === VideoState.LOADING) {
     return (
       <div className="featured-movie featured-movie--loading">
         <div className="featured-movie__placeholder">
-          Loading featured content...
+          {videoState === VideoState.LOADING ? 'Loading video...' : 'Loading featured content...'}
         </div>
       </div>
     );
@@ -65,23 +42,19 @@ export const FeaturedMovie: React.FC<FeaturedMovieProps> = ({
   return (
     <div className="featured-movie">
       <div className="featured-movie__background">
-        {showVideo ? (
-          <>
-            <video
-              ref={videoRef}
-              className="featured-movie__video"
-              // NOTE: movie.videoUrl currently does not work or is unavailable.
-              // That's why we're using a placeholder URL for now.
-              src={"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"}
-              autoPlay
-              muted
-              loop
-              playsInline
-            />
-            <button onClick={handleFullscreen} className="featured-movie__fullscreen-btn">
-              ⛶ Fullscreen
-            </button>
-          </>
+        {videoState === VideoState.PLAYING ? (
+          <video
+            ref={videoRef}
+            className="featured-movie__video"
+            autoPlay
+            preload="auto"
+            muted
+            loop
+            playsInline
+            controls
+          >
+            <source src={DEFAULT_VIDEO_URL} type="video/mp4" />
+          </video>
         ) : (
           <>
             <div
@@ -93,7 +66,7 @@ export const FeaturedMovie: React.FC<FeaturedMovieProps> = ({
         )}
       </div>
 
-      {!showVideo && (
+      {videoState === VideoState.IDLE && (
         <div className="featured-movie__content">
           <div className="featured-movie__category">{movie.category}</div>
           
@@ -123,7 +96,7 @@ export const FeaturedMovie: React.FC<FeaturedMovieProps> = ({
             <Button
               variant="primary"
               size="large"
-              onClick={onPlayClick}
+              onClick={() => onPlayClick && onPlayClick(movie)}
               className="featured-movie__play-btn"
             >
               ▶ Play

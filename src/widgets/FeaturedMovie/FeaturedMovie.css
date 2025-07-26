@@ -22,6 +22,7 @@
 .featured-movie__video {
   position: absolute;
   width: 100%;
+  height: 100%;
   top: 0;
   left: 0;
   right: 0;
@@ -47,9 +48,15 @@
 }
 
 .featured-movie__image {
+  position: relative;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
   transition: transform 0.3s ease;
 }
 
@@ -74,7 +81,7 @@
 
 .featured-movie__content {
   position: absolute;
-  top: 0;
+  top: 55px;
   left: 0;
   width: 100%;
   height: 100%;

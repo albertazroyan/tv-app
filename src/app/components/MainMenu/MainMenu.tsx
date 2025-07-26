@@ -6,11 +6,13 @@ import './MainMenu.css';
 interface MainMenuProps {
   user: User | null;
   onMenuItemClick?: (itemId: string) => void;
+  activeMenuItem?: string;
 }
 
 export const MainMenu: React.FC<MainMenuProps> = ({
   user,
   onMenuItemClick,
+  activeMenuItem = MENU_ITEMS[0].id,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
@@ -44,7 +46,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({
         {MENU_ITEMS.map((item) => (
           <button
             key={item.id}
-            className={`main-menu__icon ${hoveredItem === item.id ? 'main-menu__icon--hovered' : ''}`}
+            className={`main-menu__icon ${hoveredItem === item.id ? 'main-menu__icon--hovered' : ''} ${activeMenuItem === item.id ? 'main-menu__icon--active' : ''}`}
             onClick={() => handleItemClick(item.id)}
             onMouseEnter={() => handleItemHover(item.id)}
             title={item.label}
@@ -90,7 +92,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({
               {MENU_ITEMS.map((item) => (
                 <li key={item.id} className="main-menu__item">
                   <button
-                    className={`main-menu__link ${hoveredItem === item.id ? 'main-menu__link--hovered' : ''}`}
+                    className={`main-menu__link ${hoveredItem === item.id ? 'main-menu__link--hovered' : ''} ${activeMenuItem === item.id ? 'main-menu__link--active' : ''}`}
                     onClick={() => handleItemClick(item.id)}
                     onMouseEnter={() => handleItemHover(item.id)}
                   >
@@ -116,7 +118,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({
           <div className="main-menu__profile-menu">
             <ul className="main-menu__profile-list">
               {PROFILE_MENU_ITEMS.map((item) => (
-                <li key={item.id} className="main-menu__profile-item">
+                <li key={item.id} >
                   <button
                     className="main-menu__profile-link"
                     onClick={() => handleItemClick(item.id)}
@@ -130,7 +132,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({
         </div>
       </div>
 
-      {/* <div className={`main-menu__overlay ${isOpen ? 'main-menu__overlay--visible' : ''}`} /> */}
+      <div className={`main-menu__overlay ${isOpen ? 'main-menu__overlay--visible' : ''}`} />
     </div>
   );
 };
