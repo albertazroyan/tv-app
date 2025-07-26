@@ -1,5 +1,5 @@
 .trending-carousel {
-  margin-bottom: 2rem;
+  padding: 0 2rem;
 }
 
 .trending-carousel__header {
@@ -94,54 +94,8 @@
   transition: transform 0.3s ease;
 }
 
-.trending-carousel__overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-.trending-carousel__item:hover .trending-carousel__overlay {
+.trending-carousel__item:hover {
   opacity: 1;
-}
-
-.trending-carousel__play-icon {
-  color: white;
-  font-size: 2rem;
-  background: rgba(255, 255, 255, 0.2);
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(10px);
-}
-
-.trending-carousel__info {
-  text-align: center;
-}
-
-.trending-carousel__movie-title {
-  color: white;
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin: 0 0 0.25rem 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.trending-carousel__movie-year {
-  color: #888;
-  font-size: 0.8rem;
 }
 
 .trending-carousel__indicators {

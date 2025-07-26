@@ -101,22 +101,6 @@ export const TrendingCarousel: React.FC<TrendingCarouselProps> = ({
     <div className="trending-carousel">
       <div className="trending-carousel__header">
         <h2 className="trending-carousel__title">Trending Now</h2>
-        <div className="trending-carousel__controls">
-          <button
-            className="trending-carousel__control trending-carousel__control--prev"
-            onClick={handlePrevious}
-            disabled={currentIndex === 0}
-          >
-            ‹
-          </button>
-          <button
-            className="trending-carousel__control trending-carousel__control--next"
-            onClick={handleNext}
-            disabled={currentIndex >= maxIndex}
-          >
-            ›
-          </button>
-        </div>
       </div>
 
       <div
@@ -128,7 +112,7 @@ export const TrendingCarousel: React.FC<TrendingCarouselProps> = ({
         onMouseLeave={handleMouseLeave}
       >
         <div className="trending-carousel__track">
-          {movies.map((movie, index) => (
+          {movies.map((movie) => (
             <div
               key={movie.id}
               className="trending-carousel__item"
@@ -141,29 +125,10 @@ export const TrendingCarousel: React.FC<TrendingCarouselProps> = ({
                   className="trending-carousel__image"
                   draggable={false}
                 />
-                <div className="trending-carousel__overlay">
-                  <div className="trending-carousel__play-icon">▶</div>
-                </div>
-              </div>
-              <div className="trending-carousel__info">
-                <h3 className="trending-carousel__movie-title">{movie.title}</h3>
-                <span className="trending-carousel__movie-year">{movie.year}</span>
               </div>
             </div>
           ))}
         </div>
-      </div>
-
-      <div className="trending-carousel__indicators">
-        {Array.from({ length: Math.ceil(movies.length / visibleItems) }).map((_, index) => (
-          <button
-            key={index}
-            className={`trending-carousel__indicator ${
-              Math.floor(currentIndex / visibleItems) === index ? 'trending-carousel__indicator--active' : ''
-            }`}
-            onClick={() => scrollToIndex(index * visibleItems)}
-          />
-        ))}
       </div>
     </div>
   );

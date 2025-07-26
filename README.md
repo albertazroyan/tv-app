@@ -6,8 +6,7 @@
 
 ## 🌐 Live Demo
 
-[🔗 View Live Project](https://your-live-project-link.com)  
-*(Replace with your actual deployed site)*
+[🔗 View Live Project](https://singular-kitsune-8624ea.netlify.app/)  
 
 ---
 ## 🚀 Features
@@ -19,8 +18,9 @@
 
 ## 🛠️ Tech Stack
 
-- ⚛️ **React** (via Vite or Create React App)
+- ⚛️ **React** (via Vite)
 - 📦 **Yarn** as the package manager
+- 📚 **Feature Sliced Design (FSD)** architecture
 
 ---
 
@@ -28,5 +28,5 @@
 
 Follow the steps below to run the app locally.
 
-yarn install
-yarn develop
+- yarn
+- yarn dev

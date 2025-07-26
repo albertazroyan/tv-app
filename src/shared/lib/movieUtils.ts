@@ -44,13 +44,18 @@ export const movieUtils = {
   },
 
   formatDuration(duration: string): string {
-    // Assuming duration is in minutes, format as "1h 30m"
-    const minutes = parseInt(duration);
-    if (isNaN(minutes)) return duration;
+    const seconds = parseInt(duration);
     
+    if (isNaN(seconds) || seconds <= 0) {
+      return '';
+    }
+
+    // Convert seconds to minutes
+    const minutes = Math.floor(seconds / 60);
+
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes % 60;
-    
+
     if (hours === 0) return `${remainingMinutes}m`;
     if (remainingMinutes === 0) return `${hours}h`;
     return `${hours}h ${remainingMinutes}m`;

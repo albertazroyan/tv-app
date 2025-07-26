@@ -13,7 +13,6 @@ import { UserEntity } from '@entities/user/model';
 import './HomePage.css';
 
 export const HomePage: React.FC = () => {
-  const [movies, setMovies] = useState<Movie[]>([]);
   const [featuredMovie, setFeaturedMovie] = useState<Movie | null>(null);
   const [trendingMovies, setTrendingMovies] = useState<Movie[]>([]);
   const [user] = useState<User>(UserEntity.createDefault().toJSON());
@@ -29,8 +28,6 @@ export const HomePage: React.FC = () => {
       try {
         // Load all movies from data service
         const allMovies = await dataService.loadMovies();
-        setMovies(allMovies);
-
         // Set featured movie (either from session storage or default)
         const selectedMovieId = sessionStorageService.getSelectedMovie();
         let featured = null;

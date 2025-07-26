@@ -1,22 +1,12 @@
 .home-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
   color: white;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .home-page__content {
   margin-left: 80px;
-  padding: 2rem;
   min-height: 100vh;
-}
-
-.home-page__featured {
-  margin-bottom: 3rem;
-}
-
-.home-page__trending {
-  margin-bottom: 3rem;
 }
 
 .home-page--loading {

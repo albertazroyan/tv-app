@@ -62,59 +62,62 @@ export const FeaturedMovie: React.FC<FeaturedMovieProps> = ({
             playsInline
           />
         ) : (
-          <img
-            className="featured-movie__image"
-            src={backgroundImage}
-            alt={movie.title}
-          />
+          <>
+            <div
+              className="featured-movie__image"
+              style={{ backgroundImage: `url(${backgroundImage})` }}
+            />
+            <div className="featured-movie__overlay" />
+          </>
         )}
-        <div className="featured-movie__overlay" />
       </div>
 
-      <div className="featured-movie__content">
-        <div className="featured-movie__category">{movie.category}</div>
-        
-        {movie.logoImage && (
-          <img
-            className="featured-movie__logo"
-            src={movie.logoImage}
-            alt={`${movie.title} logo`}
-          />
-        )}
-        
-        <div className="featured-movie__info">
-          <div className="featured-movie__meta">
-            <span className="featured-movie__year">{movie.year}</span>
-            <span className="featured-movie__rating">{movie.rating}</span>
-            <span className="featured-movie__duration">
-              {movieUtils.formatDuration(movie.duration)}
-            </span>
-          </div>
+      {!showVideo && (
+        <div className="featured-movie__content">
+          <div className="featured-movie__category">{movie.category}</div>
           
-          <p className="featured-movie__description">
-            {movie.description}
-          </p>
-        </div>
+          {movie.logoImage && (
+            <img
+              className="featured-movie__logo"
+              src={movie.logoImage}
+              alt={`${movie.title} logo`}
+            />
+          )}
+          
+          <div className="featured-movie__info">
+            <div className="featured-movie__meta">
+              <span className="featured-movie__year">{movie.year}</span>
+              <span className="featured-movie__rating">{movie.rating}</span>
+              <span className="featured-movie__duration">
+                {movieUtils.formatDuration(movie.duration)}
+              </span>
+            </div>
+            
+            <p className="featured-movie__description">
+              {movie.description}
+            </p>
+          </div>
 
-        <div className="featured-movie__actions">
-          <Button
-            variant="primary"
-            size="large"
-            onClick={onPlayClick}
-            className="featured-movie__play-btn"
-          >
-            ▶ Play
-          </Button>
-          <Button
-            variant="secondary"
-            size="large"
-            onClick={onMoreInfoClick}
-            className="featured-movie__info-btn"
-          >
-            ℹ More Info
-          </Button>
+          <div className="featured-movie__actions">
+            <Button
+              variant="primary"
+              size="large"
+              onClick={onPlayClick}
+              className="featured-movie__play-btn"
+            >
+              ▶ Play
+            </Button>
+            <Button
+              variant="secondary"
+              size="large"
+              onClick={onMoreInfoClick}
+              className="featured-movie__info-btn"
+            >
+              More Info
+            </Button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
