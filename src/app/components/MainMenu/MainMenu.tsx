@@ -35,12 +35,11 @@ export const MainMenu: React.FC<MainMenuProps> = ({
   return (
     <div 
       className={`main-menu ${isOpen ? 'main-menu--open' : ''}`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
-      {/* Collapsed Menu Icons */}
       <div 
         className="main-menu__icons"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
         >
         {MENU_ITEMS.map((item) => (
           <button
@@ -50,7 +49,17 @@ export const MainMenu: React.FC<MainMenuProps> = ({
             onMouseEnter={() => handleItemHover(item.id)}
             title={item.label}
           >
-            <span className="main-menu__icon-symbol">{item.icon}</span>
+            <span className="main-menu__icon-symbol">
+              {item.icon.endsWith('.png') ? (
+                <img 
+                  src={item.icon} 
+                  alt={item.label}
+                  className="main-menu__icon-image"
+                />
+              ) : (
+                item.icon
+              )}
+            </span>
           </button>
         ))}
       </div>
@@ -62,7 +71,6 @@ export const MainMenu: React.FC<MainMenuProps> = ({
         onMouseLeave={handleMouseLeave}
       >
         <div className="main-menu__panel-content">
-          {/* Profile Section */}
           <div className="main-menu__profile">
             <div className="main-menu__avatar">
               <img 
@@ -73,7 +81,6 @@ export const MainMenu: React.FC<MainMenuProps> = ({
             </div>
             <div className="main-menu__user-info">
               <h3 className="main-menu__username">{user?.name || 'Guest User'}</h3>
-              <span className="main-menu__user-status">Premium Member</span>
             </div>
           </div>
 
@@ -87,7 +94,17 @@ export const MainMenu: React.FC<MainMenuProps> = ({
                     onClick={() => handleItemClick(item.id)}
                     onMouseEnter={() => handleItemHover(item.id)}
                   >
-                    <span className="main-menu__link-icon">{item.icon}</span>
+                    <span className="main-menu__link-icon">
+                      {item.icon.endsWith('.png') ? (
+                        <img 
+                          src={item.icon} 
+                          alt={item.label}
+                          className="main-menu__icon-image"
+                        />
+                      ) : (
+                        item.icon
+                      )}
+                    </span>
                     <span className="main-menu__link-text">{item.label}</span>
                   </button>
                 </li>
@@ -104,8 +121,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({
                     className="main-menu__profile-link"
                     onClick={() => handleItemClick(item.id)}
                   >
-                    <span className="main-menu__profile-icon">{item.icon}</span>
-                    <span className="main-menu__profile-text">{item.label}</span>
+                  <span className="main-menu__profile-text">{item.label}</span>
                   </button>
                 </li>
               ))}

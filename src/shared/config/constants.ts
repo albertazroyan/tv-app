@@ -1,16 +1,16 @@
 export const MENU_ITEMS = [
-  { id: 'search', label: 'Search', icon: '🔍' },
-  { id: 'home', label: 'Home', icon: '🏠' },
-  { id: 'tv-shows', label: 'TV Shows', icon: '📺' },
-  { id: 'movies', label: 'Movies', icon: '🎬' },
-  { id: 'genres', label: 'Genres', icon: '🎭' },
-  { id: 'watch-later', label: 'Watch Later', icon: '⏰' },
+  { id: 'search', label: 'Search', icon: '/icons/ICON - Search.png' },
+  { id: 'home', label: 'Home', icon: '/icons/Group 46.png' },
+  { id: 'tv-shows', label: 'TV Shows', icon: '/icons/Group 47.png' },
+  { id: 'movies', label: 'Movies', icon: '/icons/Group 53.png' },
+  { id: 'genres', label: 'Genres', icon: '/icons/Group 54.png' },
+  { id: 'watch-later', label: 'Watch Later', icon: '/icons/Group 56.png' },
 ];
 
 export const PROFILE_MENU_ITEMS = [
-  { id: 'language', label: 'Language', icon: '🌐' },
-  { id: 'help', label: 'Get Help', icon: '❓' },
-  { id: 'exit', label: 'Exit', icon: '🚪' },
+  { id: 'language', label: 'Language' },
+  { id: 'help', label: 'Get Help' },
+  { id: 'exit', label: 'Exit' }
 ];
 
 export const TRENDING_CAROUSEL_CONFIG = {

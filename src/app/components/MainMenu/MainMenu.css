@@ -16,6 +16,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: 2rem 0;
   z-index: 1;
   gap: 1.5rem;
@@ -44,7 +45,7 @@
 
 .main-menu__icon:hover,
 .main-menu__icon--hovered {
-  background: rgba(255, 107, 107, 0.2);
+  background: rgb(235 224 224 / 20%);
   color: #ff6b6b;
   transform: scale(1.1);
 }
@@ -59,8 +60,21 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.main-menu__icon-image {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  transition: filter 0.3s ease;
+}
+
+.main-menu__icon:hover .main-menu__icon-image,
+.main-menu__icon--hovered .main-menu__icon-image {
+  filter: brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(340deg);
+}
+
 .main-menu__panel {
-  width: 300px;
+  width: 280px;
   background: rgba(0, 0, 0, 0);
   backdrop-filter: blur(20px);
   transform: translateX(-100%);
@@ -90,8 +104,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 2rem;
-  padding-bottom: 2rem;
+  padding-bottom: 1.2rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -100,7 +113,6 @@
   height: 60px;
   border-radius: 50%;
   overflow: hidden;
-  border: 2px solid #ff6b6b;
 }
 
 .main-menu__avatar-image {
@@ -145,21 +157,20 @@
   background: transparent;
   border: none;
   color: #ccc;
-  padding: 1rem;
-  border-radius: 12px;
+  border-radius: 10px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 1rem;
-  font-size: 1rem;
+  gap: 2rem;
+  font-size: larger;
   transition: all 0.3s ease;
   text-align: left;
 }
 
 .main-menu__link:hover,
 .main-menu__link--hovered {
-  background: rgba(255, 107, 107, 0.1);
-  color: #ff6b6b;
+  background: #6168e270;
+  color: #ffffff;
   transform: translateX(8px);
 }
 
@@ -167,6 +178,12 @@
   font-size: 1.2rem;
   width: 24px;
   text-align: center;
+}
+
+.main-menu__link-icon .main-menu__icon-image,
+.main-menu__profile-icon .main-menu__icon-image {
+  width: 18px;
+  height: 18px;
 }
 
 .main-menu__link-text {
