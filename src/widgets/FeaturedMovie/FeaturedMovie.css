@@ -21,6 +21,7 @@
 .featured-movie__image,
 .featured-movie__video {
   position: absolute;
+  width: 100%;
   top: 0;
   left: 0;
   right: 0;
@@ -29,6 +30,20 @@
   background-repeat: no-repeat;
   transition: transform 0.3s ease;
   object-fit: contain;
+}
+
+.featured-movie__fullscreen-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 2;
+  padding: 8px 12px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
 }
 
 .featured-movie__image {

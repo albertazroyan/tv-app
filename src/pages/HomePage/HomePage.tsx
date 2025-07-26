@@ -5,6 +5,7 @@ import { FeaturedMovie } from '@widgets/FeaturedMovie';
 import { TrendingCarousel } from '@widgets/TrendingCarousel';
 import { MainMenu } from '@app/components/MainMenu';
 import { useSelectMovie } from '@features/selectMovie';
+import { selectMovie } from '@features/selectMovie';
 import { movieUtils } from '@shared/lib/movieUtils';
 import { sessionStorageService } from '@shared/lib/sessionStorage';
 import { dataService } from '@shared/lib/dataService';
@@ -42,7 +43,6 @@ export const HomePage: React.FC = () => {
         
         setFeaturedMovie(featured);
 
-        // Set trending movies
         const trending = await dataService.getTrendingMovies(TRENDING_CAROUSEL_CONFIG.maxItems);
         setTrendingMovies(trending);
       } catch (error) {
@@ -61,13 +61,22 @@ export const HomePage: React.FC = () => {
   };
 
   const handlePlayClick = () => {
-    console.log('Play clicked for:', featuredMovie?.title);
-    // Handle play action
+    if(!featuredMovie){
+      return;
+    }
+    selectMovie({ 
+      movie: featuredMovie, 
+      onMovieSelected: selectMovieHandler, 
+      immediate: true 
+    });
+  
   };
 
   const handleMoreInfoClick = () => {
+    if(!featuredMovie){
+      return;
+    }
     console.log('More info clicked for:', featuredMovie?.title);
-    // Handle more info action
   };
 
   if (isLoading) {

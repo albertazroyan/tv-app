@@ -4,21 +4,28 @@ import { sessionStorageService } from '@shared/lib/sessionStorage';
 export interface SelectMovieParams {
   movie: Movie;
   onMovieSelected: (movie: Movie) => void;
+  immediate?: boolean;
 }
 
-export const selectMovie = ({ movie, onMovieSelected }: SelectMovieParams) => {
+export const selectMovie = ({ movie, onMovieSelected, immediate = false }: SelectMovieParams) => {
   // Add to viewed movies in session storage
   sessionStorageService.addViewedMovie(movie.id);
   sessionStorageService.setSelectedMovie(movie.id);
   
   onMovieSelected(movie);
   
-  setTimeout(() => {
+  const playVideo = () => {
     const event = new CustomEvent('playBackgroundVideo', { 
       detail: { videoUrl: movie.videoUrl } 
     });
     window.dispatchEvent(event);
-  }, 2000);
+  };
+  
+  if (immediate) {
+    playVideo();
+  } else {
+    setTimeout(playVideo, 2000);
+  }
 };
 
 export const useSelectMovie = (onMovieSelected: (movie: Movie) => void) => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import type { Movie } from '@entities/movie';
 import { Button } from '@shared/ui';
 import { movieUtils } from '@shared/lib/movieUtils';
@@ -17,6 +17,7 @@ export const FeaturedMovie: React.FC<FeaturedMovieProps> = ({
 }) => {
   const [showVideo, setShowVideo] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState<string>('');
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
     if (movie) {
@@ -39,6 +40,18 @@ export const FeaturedMovie: React.FC<FeaturedMovieProps> = ({
     };
   }, []);
 
+  const handleFullscreen = () => {
+    if (videoRef.current) {
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else {
+        videoRef.current.requestFullscreen().catch(err => {
+          console.error('Failed to enter fullscreen:', err);
+        });
+      }
+    }
+  };
+
   if (!movie) {
     return (
       <div className="featured-movie featured-movie--loading">
@@ -53,14 +66,22 @@ export const FeaturedMovie: React.FC<FeaturedMovieProps> = ({
     <div className="featured-movie">
       <div className="featured-movie__background">
         {showVideo ? (
-          <video
-            className="featured-movie__video"
-            src={movie.videoUrl}
-            autoPlay
-            muted
-            loop
-            playsInline
-          />
+          <>
+            <video
+              ref={videoRef}
+              className="featured-movie__video"
+              // NOTE: movie.videoUrl currently does not work or is unavailable.
+              // That's why we're using a placeholder URL for now.
+              src={"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"}
+              autoPlay
+              muted
+              loop
+              playsInline
+            />
+            <button onClick={handleFullscreen} className="featured-movie__fullscreen-btn">
+              ⛶ Fullscreen
+            </button>
+          </>
         ) : (
           <>
             <div
