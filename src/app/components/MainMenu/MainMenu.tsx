@@ -35,11 +35,13 @@ export const MainMenu: React.FC<MainMenuProps> = ({
   return (
     <div 
       className={`main-menu ${isOpen ? 'main-menu--open' : ''}`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
     >
       {/* Collapsed Menu Icons */}
-      <div className="main-menu__icons">
+      <div 
+        className="main-menu__icons"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        >
         {MENU_ITEMS.map((item) => (
           <button
             key={item.id}
@@ -54,7 +56,11 @@ export const MainMenu: React.FC<MainMenuProps> = ({
       </div>
 
       {/* Expanded Menu Panel */}
-      <div className={`main-menu__panel ${isOpen ? 'main-menu__panel--visible' : ''}`}>
+      <div 
+        className={`main-menu__panel ${isOpen ? 'main-menu__panel--visible' : ''}`}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         <div className="main-menu__panel-content">
           {/* Profile Section */}
           <div className="main-menu__profile">
@@ -108,8 +114,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({
         </div>
       </div>
 
-      {/* Background Overlay */}
-      <div className={`main-menu__overlay ${isOpen ? 'main-menu__overlay--visible' : ''}`} />
+      {/* <div className={`main-menu__overlay ${isOpen ? 'main-menu__overlay--visible' : ''}`} /> */}
     </div>
   );
 };
