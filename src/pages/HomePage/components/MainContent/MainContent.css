@@ -1,0 +1,15 @@
+.main-content {
+  margin-left: 80px;
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 60px;
+    padding: 1rem;
+  }
+
+  .main-content__featured {
+    margin-bottom: 2rem;
+  }
+}
