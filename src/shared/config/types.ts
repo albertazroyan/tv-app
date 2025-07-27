@@ -20,22 +20,8 @@ export interface User {
   avatar: string;
 }
 
-export interface MenuState {
-  isOpen: boolean;
-  hoveredItem: string | null;
-}
-
 export enum VideoState {
   IDLE = 'idle',
   LOADING = 'loading',
   PLAYING = 'playing'
-}
-
-export interface AppState {
-  featuredMovie: Movie | null;
-  trendingMovies: Movie[];
-  selectedMovie: Movie | null;
-  user: User | null;
-  menuState: MenuState;
-  lastViewedMovies: string[];
 }

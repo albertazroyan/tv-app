@@ -3,8 +3,8 @@ import './Button.css';
 
 interface ButtonProps {
   children: React.ReactNode;
-  variant?: 'primary' | 'secondary' | 'outline';
-  size?: 'small' | 'medium' | 'large';
+  variant?: 'primary' | 'secondary';
+  size?: 'large';
   onClick?: () => void;
   disabled?: boolean;
   className?: string;
@@ -13,7 +13,7 @@ interface ButtonProps {
 export const Button: React.FC<ButtonProps> = ({
   children,
   variant = 'primary',
-  size = 'medium',
+  size = 'large',
   onClick,
   disabled = false,
   className = '',

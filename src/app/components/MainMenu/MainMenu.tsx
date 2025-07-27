@@ -66,7 +66,6 @@ export const MainMenu: React.FC<MainMenuProps> = ({
         ))}
       </div>
 
-      {/* Expanded Menu Panel */}
       <div 
         className={`main-menu__panel ${isOpen ? 'main-menu__panel--visible' : ''}`}
         onMouseEnter={handleMouseEnter}
@@ -86,7 +85,6 @@ export const MainMenu: React.FC<MainMenuProps> = ({
             </div>
           </div>
 
-          {/* Main Navigation */}
           <nav className="main-menu__nav">
             <ul className="main-menu__list">
               {MENU_ITEMS.map((item) => (
@@ -114,7 +112,6 @@ export const MainMenu: React.FC<MainMenuProps> = ({
             </ul>
           </nav>
 
-          {/* Profile Menu */}
           <div className="main-menu__profile-menu">
             <ul className="main-menu__profile-list">
               {PROFILE_MENU_ITEMS.map((item) => (

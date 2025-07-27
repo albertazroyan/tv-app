@@ -33,16 +33,6 @@ export const movieUtils = {
     return [...viewedMovies, ...unviewedMovies];
   },
 
-  getTrendingMovies(movies: Movie[], maxCount: number = 50): Movie[] {
-    return movies
-      .filter(movie => movie.isTrending)
-      .slice(0, maxCount);
-  },
-
-  getFeaturedMovie(movies: Movie[]): Movie | null {
-    return movies.find(movie => movie.isFeatured) || movies[0] || null;
-  },
-
   formatDuration(duration: string): string {
     const seconds = parseInt(duration);
     
